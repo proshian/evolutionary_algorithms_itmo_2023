@@ -25,7 +25,7 @@
 
 [Файл с кодом](./watchmaker/examples/src/java/main/org/uncommons/watchmaker/examples/travellingsalesman/TravellingSalesmanApplet.java)
 
-Цель задачи коммивояжера — найти кратчайший путь, проходящий через все заданные точки (города).
+Цель задачи коммивояжера — минимизировать путь, проходящий через все заданные точки (города).
 
 Результаты при исходных параметрах:
 ```
@@ -35,6 +35,7 @@ TOTAL DISTANCE: 10494.0km
 (Search Time: 2.741 seconds)
 ```
 
+Результаты при увеличении популяции до 600
 ```
 [Evolution (pop: 600, gen: 100, elite: 3, Truncation Selection (50%))]
 ROUTE: Rome -> Madrid -> Lisbon -> Dublin -> London -> Paris -> Luxembourg -> Brussels -> Amsterdam -> Copenhagen -> Stockholm -> Helsinki -> Berlin -> Vienna -> Athens -> Rome
@@ -42,6 +43,7 @@ TOTAL DISTANCE: 10494.0km
 (Search Time: 0.417 seconds)
 ```
 
+Результаты при увеличении числа поколений (итераций) до 200
 ```
 [Evolution (pop: 300, gen: 200, elite: 3, Truncation Selection (50%))]
 ROUTE: Berlin -> Helsinki -> Stockholm -> Copenhagen -> Amsterdam -> Brussels -> Luxembourg -> Paris -> London -> Dublin -> Lisbon -> Madrid -> Rome -> Athens -> Vienna -> Berlin
@@ -49,6 +51,7 @@ TOTAL DISTANCE: 10494.0km
 (Search Time: 0.174 seconds)
 ```
 
+Результаты при увеличении популяции до 600 и числа поколений (итераций) до 200
 
 ```
 [Evolution (pop: 600, gen: 200, elite: 3, Truncation Selection (50%))]
@@ -57,6 +60,7 @@ TOTAL DISTANCE: 10494.0km
 (Search Time: 0.43 seconds)
 ```
 
+Результаты при увеличении популяции до 600 и числа элитарных объектов до 12:
 ```
 [Evolution (pop: 300, gen: 200, elite: 12, Truncation Selection (50%))]
 ROUTE: Vienna -> Athens -> Rome -> Madrid -> Lisbon -> Dublin -> London -> Paris -> Luxembourg -> Brussels -> Amsterdam -> Copenhagen -> Stockholm -> Helsinki -> Berlin -> Vienna
@@ -82,9 +86,9 @@ TOTAL DISTANCE: 10494.0km
 ## Ответы на вопросы:
 1. Типы структур решений:
     * Bits Counts — бинарный
-    * Traveling salesman problem — древовидный
+    * Traveling salesman problem — комбинаторный, так как список городов представляет собой перестановку (можно рассматривать и как древовидный, так как список городов определяет граф) 
     * Mona Lisa — комбинатрный
 
-2. Решения в задачи коммивояжера закодированы следующим образом:
+2. Решения в задачи коммивояжера закодированы в виде списка городов в определенном порядке.
 
-3. В задаче Mona Lisa генотип — закодированное множество многоугольников (в данном случае список объектов ColouredPolygon), фенотип — отренжеренное изображение
+3. В задаче Mona Lisa генотип — закодированное множество многоугольников (в данном случае список объектов ColouredPolygon), фенотип — отрендеренное изображение

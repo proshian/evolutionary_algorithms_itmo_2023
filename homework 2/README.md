@@ -59,7 +59,7 @@ TOTAL DISTANCE: 10494.0km
 (Search Time: 0.43 seconds)
 ```
 
-Результаты при увеличении популяции до 600 и числа элитарных объектов до 12:
+Результаты при увеличении числа элитарных объектов до 12:
 ```
 [Evolution (pop: 300, gen: 200, elite: 12, Truncation Selection (50%))]
 ROUTE: Vienna -> Athens -> Rome -> Madrid -> Lisbon -> Dublin -> London -> Paris -> Luxembourg -> Brussels -> Amsterdam -> Copenhagen -> Stockholm -> Helsinki -> Berlin -> Vienna

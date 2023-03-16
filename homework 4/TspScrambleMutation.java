@@ -3,23 +3,24 @@ package lab3;
 import org.uncommons.watchmaker.framework.EvolutionaryOperator;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
-public class TspSwapMutation extends TspMutation implements EvolutionaryOperator<TspSolution> {
+public class TspScrambleMutation extends TspMutation implements EvolutionaryOperator<TspSolution> {
 
-    public TspSwapMutation(){
+    public TspScrambleMutation(){
         super();
     }
 
-    public TspSwapMutation(double probThreshold){
+    public TspScrambleMutation(double probThreshold){
         super(probThreshold);
     }
 
     protected void applyForOneSolution(TspSolution solution, Random random) {
         IndexPair iPair = IndexPair.getRandomIndexPair(solution.getCitiesNum(), random);
 
-        solution.swapIndexes(iPair.smaller, iPair.bigger);
+        solution.scrambleRegion(iPair.smaller, iPair.bigger);
 
-//        solution.checkAllCitiesPresent();
+        solution.checkAllCitiesPresent();
     }
 }

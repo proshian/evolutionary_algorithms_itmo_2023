@@ -67,8 +67,8 @@ public class TspCrossover extends AbstractCrossover<TspSolution> {
         TspSolution child1 = orderedCrossover(p1, p2, random);
         TspSolution child2 = orderedCrossover(p2, p1, random);
 
-        child1.checkAllCitiesPresent();
-        child2.checkAllCitiesPresent();
+//        child1.checkAllCitiesPresent();
+//        child2.checkAllCitiesPresent();
 
         children.add(child1);
         children.add(child2);

@@ -17,19 +17,9 @@ public class TspInsertMutation extends TspMutation implements EvolutionaryOperat
     }
 
     protected void applyForOneSolution(TspSolution solution, Random random) {
-        ArrayList<Integer> route = solution.getRoute();
+        IndexPair iPair = IndexPair.getRandomIndexPair(solution.getCitiesNum(), random);
 
-        int route_len = route.size();
-
-        int i = random.nextInt(route_len);
-
-        int j = random.nextInt(route_len);
-
-        while (j == i) {
-            j = random.nextInt(route_len);
-        }
-
-        solution.insertIAfterJ(i, j);
+        solution.insertIAfterJ(iPair.smaller, iPair.bigger);
 
 //        solution.checkAllCitiesPresent();
     }

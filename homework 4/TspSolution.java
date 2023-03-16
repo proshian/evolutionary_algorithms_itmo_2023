@@ -26,6 +26,11 @@ public class TspSolution {
         Collections.shuffle(route);
     }
 
+    public TspSolution(TspSolution s) {
+        this.citiesNum = s.citiesNum;
+        this.route = new ArrayList<Integer>(s.route);
+    }
+
 
     protected TspSolution(ArrayList<Integer> route) {
         this.route = route;
@@ -55,10 +60,38 @@ public class TspSolution {
         }
     }
 
-//    public void invertSubsolution(int i, int j) {
-//    }
+    public void invertRegion(int start, int end) {
+        int[] invertedSubArray = getInvertedSubArray(start, end);
+        for (int i = start; i <= end; i++) {
+            route.set(i, invertedSubArray[i-start]);
+        }
+    }
 
-//    private getInvertedSubarray()
+
+    public void scrambleRegion(int start, int end) {
+        int[] subArray = getSubArray(start, end);
+        for (int i = start; i <= end; i++) {
+            route.set(i, subArray[i]);
+        }
+    }
+
+    private int[] getSubArray(int start, int end) {
+        int subArrayLen = end-start+1;
+        int[] subArray = new int[subArrayLen];
+        for (int i = 0; i < subArrayLen; i++) {
+            subArray[i] = route.get(start + i);
+        }
+        return subArray;
+    }
+
+    private int[] getInvertedSubArray(int start, int end) {
+        int subArrayLen = end-start+1;
+        int[] invertedSubArray = new int[subArrayLen];
+        for (int i = 0; i < subArrayLen; i++) {
+            invertedSubArray[subArrayLen-1-i] = route.get(start + i);
+        }
+        return invertedSubArray;
+    }
 
 
     @Override

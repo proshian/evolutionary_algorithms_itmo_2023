@@ -14,7 +14,7 @@ public class TspAlg {
 
     public static void main(String[] args) {
         // name of problem or path to input file
-        String pathToTsp = "path\to\tsp";
+        String pathToTsp = "C:\\Users\\SystemPoint\\Documents\\ITMO homeworks\\genetic_algorithms_playground\\hw4\\pma343.tsp";
 
         int populationSize = 100; // size of population
         int generations = 1000000; //1000000; // number of generations
@@ -27,9 +27,13 @@ public class TspAlg {
         CandidateFactory<TspSolution> factory = new TspFactory(cities_num); // generation of solutions
 
         ArrayList<EvolutionaryOperator<TspSolution>> operators = new ArrayList<EvolutionaryOperator<TspSolution>>();
-        operators.add(new TspCrossover(1.0)); // Crossover
-        operators.add(new TspSwapMutation(0.5)); // Mutation
-        operators.add(new TspInsertMutation(0.5));
+        operators.add(new TspCrossover(0.4)); // Crossover
+        // Mutations
+        operators.add(new TspSwapMutation(0.2));
+        operators.add(new TspInsertMutation(0.65));
+        operators.add(new TspInversionMutation(0.1));
+        operators.add(new TspScrambleMutation(0.2));
+
         EvolutionPipeline<TspSolution> pipeline = new EvolutionPipeline<TspSolution>(operators);
 
         SelectionStrategy<Object> selection = new RouletteWheelSelection(); // Selection operator

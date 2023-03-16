@@ -6,16 +6,20 @@ import java.util.Collections;
 public class TspSolution {
     private ArrayList<Integer> route;
 
-    protected TspSolution(int cities_num) {
+    private static int citiesNum;
+
+    protected TspSolution(int citiesNum) {
         /**
          * Initialize Route attribute with an ArrayList
          * that contains a random permutation
          * of integers in range [1, cities_num]
          */
 
+        this.citiesNum = citiesNum;
+
         route = new ArrayList<Integer>();
 
-        for(int i = 0; i < cities_num; i++) {
+        for(int i = 0; i < citiesNum; i++) {
             route.add(i);
         }
 
@@ -41,6 +45,16 @@ public class TspSolution {
         route.set(j, i_val);
     }
 
+    public void insertIAfterJ(int i, int j) {
+        route.add(j, route.get(i));
+        if (i < j) {
+            route.remove(i);
+        }
+        else {
+            route.remove(i+1);
+        }
+    }
+
 //    public void invertSubsolution(int i, int j) {
 //    }
 
@@ -60,6 +74,27 @@ public class TspSolution {
 
     public int getCitiesNum() {
         return route.size();
+    }
+
+
+    public void checkAllCitiesPresent() {
+        if (route.size() != citiesNum)
+            throw new AssertionError("Number of cities (" + route.size() + ") is different from it's initial value!");
+
+        boolean[] cityEncountered = new boolean[citiesNum];
+        for (int i =0; i < citiesNum; i++) {
+            cityEncountered[i] = false;
+        }
+
+        for (int i = 0; i < citiesNum; i++) {
+            int cityIndex = route.get(i);
+            if (cityEncountered[cityIndex]) {
+                throw new AssertionError("City " + cityIndex + " is present at least twice in the solution");
+            }
+            else {
+                cityEncountered[cityIndex] = true;
+            }
+        }
     }
 
 

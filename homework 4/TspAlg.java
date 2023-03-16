@@ -17,7 +17,7 @@ public class TspAlg {
         String pathToTsp = "path\to\tsp";
 
         int populationSize = 100; // size of population
-        int generations = 1000000; // number of generations
+        int generations = 1000000; //1000000; // number of generations
 
 
         Random random = new Random(); // random
@@ -27,8 +27,9 @@ public class TspAlg {
         CandidateFactory<TspSolution> factory = new TspFactory(cities_num); // generation of solutions
 
         ArrayList<EvolutionaryOperator<TspSolution>> operators = new ArrayList<EvolutionaryOperator<TspSolution>>();
-        operators.add(new TspCrossover()); // Crossover
-        operators.add(new TspSwapMutation()); // Mutation
+        operators.add(new TspCrossover(1.0)); // Crossover
+        operators.add(new TspSwapMutation(0.5)); // Mutation
+        operators.add(new TspInsertMutation(0.5));
         EvolutionPipeline<TspSolution> pipeline = new EvolutionPipeline<TspSolution>(operators);
 
         SelectionStrategy<Object> selection = new RouletteWheelSelection(); // Selection operator
@@ -38,12 +39,23 @@ public class TspAlg {
         EvolutionEngine<TspSolution> algorithm = new SteadyStateEvolutionEngine<TspSolution>(
                 factory, pipeline, evaluator, selection, populationSize, false, random);
 
+
+
+
         algorithm.addEvolutionObserver(new EvolutionObserver() {
+            int generationOfBestFitness = 0;
+            double prevBestFit = 999999999;
             public void populationUpdate(PopulationData populationData) {
                 double bestFit = populationData.getBestCandidateFitness();
                 System.out.println("Generation " + populationData.getGenerationNumber() + ": " + bestFit);
                 TspSolution best = (TspSolution)populationData.getBestCandidate();
                 System.out.println("\tBest solution = " + best.toString());
+
+                if (prevBestFit > bestFit) {
+                    generationOfBestFitness = populationData.getGenerationNumber();
+                    prevBestFit = bestFit;
+                }
+                System.out.println("\tGeneration of best solution = " + generationOfBestFitness);
             }
         });
 

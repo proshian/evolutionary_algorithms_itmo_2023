@@ -1,12 +1,13 @@
 package lab3;
 
+import org.uncommons.maths.random.Probability;
 import org.uncommons.watchmaker.framework.operators.AbstractCrossover;
 
 import java.util.*;
 
 public class TspCrossover extends AbstractCrossover<TspSolution> {
-    protected TspCrossover() {
-        super(1);
+    protected TspCrossover(double crossOverProbability) {
+        super(1, new Probability(crossOverProbability));
     }
 
     private TspSolution orderedCrossover(TspSolution p1, TspSolution p2, int start, int end) {
@@ -43,7 +44,7 @@ public class TspCrossover extends AbstractCrossover<TspSolution> {
     private TspSolution orderedCrossover(TspSolution p1, TspSolution p2, Random random) {
         int route_len = p1.getCitiesNum();
 
-        int start = random.nextInt(route_len - 1);
+        int start = random.nextInt(route_len);
         int end = random.nextInt(route_len);
         while(end == start) {
             end = random.nextInt(route_len);
@@ -63,8 +64,14 @@ public class TspCrossover extends AbstractCrossover<TspSolution> {
 
         ArrayList children = new ArrayList();
 
-        children.add(orderedCrossover(p1, p2, random));
-        children.add(orderedCrossover(p2, p1, random));
+        TspSolution child1 = orderedCrossover(p1, p2, random);
+        TspSolution child2 = orderedCrossover(p2, p1, random);
+
+        child1.checkAllCitiesPresent();
+        child2.checkAllCitiesPresent();
+
+        children.add(child1);
+        children.add(child2);
 
         return children;
     }

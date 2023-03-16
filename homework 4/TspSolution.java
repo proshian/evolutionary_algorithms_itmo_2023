@@ -69,17 +69,18 @@ public class TspSolution {
 
 
     public void scrambleRegion(int start, int end) {
-        int[] subArray = getSubArray(start, end);
+        ArrayList<Integer> subArray = getSubArray(start, end);
+        Collections.shuffle(subArray);
+
         for (int i = start; i <= end; i++) {
-            route.set(i, subArray[i]);
+            route.set(i, subArray.get(i - start));
         }
     }
 
-    private int[] getSubArray(int start, int end) {
-        int subArrayLen = end-start+1;
-        int[] subArray = new int[subArrayLen];
-        for (int i = 0; i < subArrayLen; i++) {
-            subArray[i] = route.get(start + i);
+    private ArrayList<Integer> getSubArray(int start, int end) {
+        ArrayList<Integer> subArray =  new ArrayList<Integer>();
+        for (int i = start; i <= end; i++) {
+            subArray.add(route.get(i));
         }
         return subArray;
     }

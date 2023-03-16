@@ -14,7 +14,7 @@ public class MyMutation implements EvolutionaryOperator<double[]> {
         double mutation_prob = 0.005;
 
         for (int i = 0; i < population.size(); i++) {
-            for (int j = 0; j < population.get(i).length; j++){
+            for (int j = 0; j < population.get(i).length; j++) {
                 if (random.nextDouble() < mutation_prob){
                     population.get(i)[j] = random.nextDouble() * 10 - 5;
                 }

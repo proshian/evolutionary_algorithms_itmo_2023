@@ -1,4 +1,4 @@
-package lab3;
+package queens;
 
 import java.util.Random;
 

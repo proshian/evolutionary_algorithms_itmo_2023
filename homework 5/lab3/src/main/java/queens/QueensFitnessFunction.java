@@ -1,13 +1,22 @@
-package lab3;
+package queens;
 
 import org.uncommons.watchmaker.framework.FitnessEvaluator;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class TspFitnessFunction implements FitnessEvaluator<TspSolution> {
+public class QueensFitnessFunction implements FitnessEvaluator<QueensSolution> {
 
-    public double getFitness(TspSolution solution, List<? extends TspSolution> list) {
+    public QueensFitnessFunction() {
+        callsNum = 0;
+    }
+
+    public int getCallsNum() {
+        return callsNum;
+    }
+
+    private int callsNum;
+
+    public double getFitness(QueensSolution solution, List<? extends QueensSolution> list) {
         // For element of a solution:
         // if they are on the same diagonal, they beat each other.
         // Note that they cannot be on same column or row because of design of solution!
@@ -15,7 +24,9 @@ public class TspFitnessFunction implements FitnessEvaluator<TspSolution> {
         //
         // We should get all possible pairs of indexes from 0 to N = dimension.
         // if two queens are on  same diagonal, sumOfBeats += 1
-        double sumOfBeats = 0.0D;
+        callsNum +=1;
+
+        double beatenQueensNum = 0;
 
         int dimension = solution.getDimension();
         for (int colInd = 0; colInd < dimension; colInd++) {
@@ -26,19 +37,17 @@ public class TspFitnessFunction implements FitnessEvaluator<TspSolution> {
                 if (colInd2 == colInd) {
                     continue;
                 }
+
                 int mainDiagonalIndex2 = colInd2 - solution.getRowIndex(colInd2);
                 int secondaryDiagonalIndex2 = colInd2 + solution.getRowIndex(colInd2);
 
-                if(mainDiagonalIndex2 == mainDiagonalIndex) {
-                    sumOfBeats += 1;
-                    continue;
-                }
-                if(secondaryDiagonalIndex2 == secondaryDiagonalIndex) {
-                    sumOfBeats += 1;
+                if(mainDiagonalIndex2 == mainDiagonalIndex || secondaryDiagonalIndex2 == secondaryDiagonalIndex) {
+                    beatenQueensNum += 1;
+                    break;
                 }
             }
         }
-        return sumOfBeats;
+        return beatenQueensNum;
     }
 
     // If we aim to minimize fitness, isNatural should return false.

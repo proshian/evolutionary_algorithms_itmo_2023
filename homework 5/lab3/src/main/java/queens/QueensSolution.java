@@ -1,8 +1,8 @@
-package lab3;
+package queens;
 
 import java.util.*;
 
-public class TspSolution {
+public class QueensSolution {
     private int[] rowIndexes;
 
     public int getDimension() {
@@ -13,9 +13,13 @@ public class TspSolution {
         return rowIndexes[columnIndex];
     }
 
+    public int[] getRowIndexes() {
+        // used in tests only
+        return rowIndexes;
+    }
 
     //? Почему protected?
-    protected TspSolution(int dimension) {
+    protected QueensSolution(int dimension) {
         rowIndexes = new int[dimension];
 
         for(int i = 0; i < dimension; i++) {
@@ -24,7 +28,12 @@ public class TspSolution {
         ArrayUtil.shuffle(rowIndexes);
     }
 
-    public TspSolution(TspSolution s) {
+    protected QueensSolution(int [] rowIndexes) {
+        // used in tests only
+        this.rowIndexes = rowIndexes;
+    }
+
+    public QueensSolution(QueensSolution s) {
         int dimension = s.rowIndexes.length;
         rowIndexes = new int[dimension];
         System.arraycopy(s.rowIndexes, 0, rowIndexes, 0, dimension);
@@ -99,11 +108,8 @@ public class TspSolution {
     }
 
 
-
-
-
-    public static TspSolution orderedCrossover(TspSolution p1, TspSolution p2, int start, int end) {
-        TspSolution child = new TspSolution(p1);
+    public static QueensSolution orderedCrossover(QueensSolution p1, QueensSolution p2, int start, int end) {
+        QueensSolution child = new QueensSolution(p1);
 
         Set<Integer> already_used_city_indexes_set = new HashSet<Integer>();
         for (int i = start; i < end + 1; i++) {
@@ -129,46 +135,8 @@ public class TspSolution {
 
     }
 
-    public static TspSolution orderedCrossover(TspSolution p1, TspSolution p2, Random random) {
-        IndexPair iPair = IndexPair.getRandomIndexPair( p1.getDimension(), random);
-        return orderedCrossover(p1,  p2, iPair.smaller,  iPair.bigger);
+    public static QueensSolution orderedCrossover(QueensSolution p1, QueensSolution p2, Random random) {
+        IndexPair iPair = IndexPair.getRandomOrderedIndexPair( p1.getDimension(), random);
+        return orderedCrossover(p1,  p2, iPair.i,  iPair.j);
     }
-
-
-
-
-
-
-//    private int[] getInvertedSubArray(int start, int end) {
-//        int subArrayLen = end-start+1;
-//        int[] invertedSubArray = new int[subArrayLen];
-//        for (int i = 0; i < subArrayLen; i++) {
-//            invertedSubArray[subArrayLen-1-i] = rowIndexes[start + i];
-//        }
-//        return invertedSubArray;
-//    }
-
-
-
-//    protected TspSolution(ArrayList<Integer> route) {
-//        this.route = route;
-//    }
-//        public void setRoute() {
-//
-//    }
-
-//    public ArrayList<Integer> getRoute() {
-//        return route;
-//    }
-
-
-//    private ArrayList<Integer> getSubArray(int start, int end) {
-//        ArrayList<Integer> subArray =  new ArrayList<Integer>();
-//        for (int i = start; i <= end; i++) {
-//            subArray.add(rowIndexes.[i]);
-//        }
-//        return subArray;
-//    }
-
-
 }

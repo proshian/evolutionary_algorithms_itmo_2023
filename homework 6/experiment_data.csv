@@ -1,0 +1,16 @@
+алгоритм,complexity,время (ms),результат
+single-thread,1,126,5.170
+single-thread,2,118,5.162
+single-thread,3,169,5.123
+single-thread,4,188,5.253
+single-thread,5,211,5.145
+master-slave,1,125,5.092
+master-slave,2,86,5.304
+master-slave,3,137,5.093
+master-slave,4,160,5.219
+master-slave,5,104,5.188
+island,1,339,6.534
+island,2,307,6.569
+island,3,295,6.571
+island,4,296,6.579
+island,5,337,6.577

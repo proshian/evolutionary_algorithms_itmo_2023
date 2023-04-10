@@ -26,6 +26,10 @@ public class TspSolution {
         Collections.shuffle(route);
     }
 
+    public int getDimension() {
+        return rowIndexes.length;
+    }
+
     public TspSolution(TspSolution s) {
         this.citiesNum = s.citiesNum;
         this.route = new ArrayList<Integer>(s.route);
